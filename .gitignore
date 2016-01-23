@@ -1,0 +1,5 @@
+.DS_Store
+data/raw/json/*.*
+data/raw/csv/*.*
+data/results/*.*
+data/raw/FoodFacts.csv
