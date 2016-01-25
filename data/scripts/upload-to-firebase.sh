@@ -4,7 +4,6 @@
 # DESCRIPTION:
 # Uploads json to firebase.
 set -x
-
 FILE_NUMBER=1
 FIREBASE_URL=https://worldnutritionfacts.firebaseio.com/
 for f in ../json/*.json

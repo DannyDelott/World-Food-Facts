@@ -40,8 +40,8 @@ console.log('Execution time:\t\t' + utils.millisecondsToTime(TIME));
  * @return {Array<Object>} results
  */
 function parseRecordsByRequiredFields (records, fields) {
-  return records.filter(function(record){
-    return fields.reduce(function(meetsRequirements, requiredField){
+  return records.filter(function (record) {
+    return fields.reduce(function (meetsRequirements, requiredField) {
       return meetsRequirements ? !!record[requiredField] : false;
     }, true);
   });
@@ -52,9 +52,9 @@ function parseRecordsByRequiredFields (records, fields) {
  * @param {Array<String>} args - all arguments passed in via command line
  * @return {Array<String>} fields - names of fields that are required by the user
  */
-function parseRequiredFieldsFromCommandLine(args){
+function parseRequiredFieldsFromCommandLine (args) {
   var isArgument = false;
-  return args.filter(function(argument){
+  return args.filter(function (argument) {
     if (!isArgument && argument === '-f') {
       isArgument = true;
       return false;
@@ -64,7 +64,7 @@ function parseRequiredFieldsFromCommandLine(args){
       isArgument = false;
       return false;
     } else {
-      return false
+      return false;
     }
   });
 };

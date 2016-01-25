@@ -1,5 +1,4 @@
-PARSER=scripts/parse-records-by-required-fields.js
-
+PARSER=parser/parse-records-by-required-fields.js
 node $PARSER -f countries proteins_100g -o results/proteins-100g-by-country.json
 node $PARSER -f countries salt_100g -o results/salt-100g-by-country.json
 node $PARSER -f countries sodium_100g -o results/sodium-100g-by-country.json

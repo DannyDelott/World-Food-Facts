@@ -7,7 +7,7 @@ var fs = require('fs');
  */
 var exportRecords = function (records, outputFile) {
   var file = fs.createWriteStream(outputFile);
-  file.on('error', function(err) { 
+  file.on('error', function (err) { 
     console.log(err);
   });
   file.write(JSON.stringify(records) + '\n'); 
@@ -32,7 +32,7 @@ var millisecondsToTime = function (milli) {
  * @return {Array<Object>} data - list of parsed record objects
  */
 var loadFiles = function (filenames) {
-  return filenames.map(function(filename, i){
+  return filenames.map(function (filename, i) {
     return require(filename);
   });
 }
