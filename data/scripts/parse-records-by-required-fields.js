@@ -9,8 +9,8 @@ var now   = require('performance-now'),
     utils = require('./utils');
 
 var START_TIMER = now();
-var REQUIRED_FIELDS = getRequiredFields(process.argv);
-var OUTPUT_FILE = process.argv[process.argv.length-1];;
+var REQUIRED_FIELDS = parseRequiredFieldsFromCommandLine(process.argv);
+var OUTPUT_FILE = process.argv[process.argv.length-1];
 
 var files = utils.generateEnumeratedFileNames('../raw/json/food-facts', 'json', 7);
 
@@ -52,7 +52,7 @@ function parseRecordsByRequiredFields (records, fields) {
  * @param {Array<String>} args - all arguments passed in via command line
  * @return {Array<String>} fields - names of fields that are required by the user
  */
-function getRequiredFields(args){
+function parseRequiredFieldsFromCommandLine(args){
   var isArgument = false;
   return args.filter(function(argument){
     if (!isArgument && argument === '-f') {
