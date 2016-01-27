@@ -10,6 +10,7 @@
   "license": "ISC",
   "devDependencies": {
     "csvtojson": "^0.5.1",
+    "mocha": "^2.4.2",
     "performance-now": "^0.2.0"
   }
 }
