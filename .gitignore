@@ -4,3 +4,4 @@ data/raw/csv/*.*
 data/results/*.*
 data/raw/FoodFacts.csv
 node_modules/
+npm-debug.log
