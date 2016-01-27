@@ -4,12 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "./node_modules/mocha/bin/mocha data/parser/*.spec.js"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "csvtojson": "^0.5.1",
+    "expect": "^1.13.4",
     "mocha": "^2.4.2",
     "performance-now": "^0.2.0"
   }

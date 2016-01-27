@@ -1,17 +1,14 @@
 var fs = require('fs');
 
 /**
- * Saves a list of records to a file.
+ * Saves a list of records to a file synchronously.
  * @param {Array<Object>} records - list of records
  * @param {String} outputFile - file to save to
  */
 var exportRecords = function (records, outputFile) {
-  var file = fs.createWriteStream(outputFile);
-  file.on('error', function (err) { 
-    console.log(err);
-  });
-  file.write(JSON.stringify(records) + '\n'); 
-  file.end();
+  var stringified = JSON.stringify(records) + '\n';
+  var options = { encoding: 'utf8' };
+  fs.writeFileSync(outputFile, stringified, options);
 };
 
 /**
