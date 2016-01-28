@@ -4,13 +4,16 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "./node_modules/mocha/bin/mocha data/parser/*.spec.js"
+    "start": "npm run lint && npm run test",
+    "test": "./node_modules/mocha/bin/mocha data/parser/*.spec.js",
+    "lint": "./node_modules/jshint/bin/jshint  data/parser/*.js"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "csvtojson": "^0.5.1",
     "expect": "^1.13.4",
+    "jshint": "^2.9.1",
     "mocha": "^2.4.2",
     "performance-now": "^0.2.0"
   }

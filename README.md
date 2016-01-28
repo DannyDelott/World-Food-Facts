@@ -14,6 +14,7 @@ Dataset available here: https://www.kaggle.com/openfoodfacts/world-food-facts
 ```bash
 git clone https://github.com/DannyDelott/World-Food-Facts.git
 npm install
+npm start
 ```
 
 #### Extracting the sample from the dataset
@@ -24,6 +25,14 @@ bash split-csv-into-json-files.sh <csv-file> ../raw/json/ food-facts 10000
 cd ..
 bash queries.sh
 ```
+
+#### npm scripts
+
+Command | Description
+---|---
+`npm start` | Run the linter and run the tests
+`npm run lint` | Lint all javascript code
+`npm run test` | Run the mocha tests
 
 #### System Requirements
 - Node v5.0.0 (will likely work on older versions)
