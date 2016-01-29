@@ -10,6 +10,7 @@ __          __        _     _   ______              _   ______         _
 Dataset available here: https://www.kaggle.com/openfoodfacts/world-food-facts
 
 #### Installation
+- Download and unzip the dataset: https://www.kaggle.com/openfoodfacts/world-food-facts
 
 ```bash
 git clone https://github.com/DannyDelott/World-Food-Facts.git
@@ -18,10 +19,11 @@ npm start
 ```
 
 #### Extracting the sample from the dataset
+- Replace `<csv-file>` with the path to `FoodFacts.csv`
 
 ```bash
 cd data/scripts
-bash split-csv-into-json-files.sh <csv-file> ../raw/json/ food-facts 10000
+bash split-csv-into-json-files.sh <csv-file> ../json/ food-facts 10000
 cd ..
 bash queries.sh
 ```
