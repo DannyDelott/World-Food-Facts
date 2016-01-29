@@ -1,4 +1,11 @@
 /**
+ * Holds information about a query.
+ * @typedef {Query} Query
+ * @property {Array} fields - the required fields in each result
+ * @property {String} output - the location to save the results
+ */
+
+/**
  * Return only records that contain a value for all the specified fields.
  * @param {Array<Object>} records
  * @param {Array<String>} fields
@@ -15,9 +22,9 @@ function parseRecordsByRequiredFields (records, fields) {
 /**
  * Get a list of command line arguments that represent the required fields.
  * @param {Array<String>} args - all arguments passed in via command line
- * @return {Array<String>} fields - names of fields that are required by the user
+ * @return {Array<Query>} fields - list of all queries and output files
  */
-function parseRequiredFieldsFromCommandLine (args) {
+function parseQueriesFromCommandLine (args) {
   var isArgument = false;
   return args.filter(function (argument) {
     if (!isArgument && argument === '-f') {
@@ -48,6 +55,6 @@ var millisecondsToTime = function (milli) {
 
 module.exports = {
   parseRecordsByRequiredFields,
-  parseRequiredFieldsFromCommandLine,
+  parseQueriesFromCommandLine,
   millisecondsToTime
 };

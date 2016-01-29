@@ -11,7 +11,7 @@
       ParserUtils = require('./ParserUtils');
 
   var START_TIMER = now();
-  var REQUIRED_FIELDS = parseRequiredFieldsFromCommandLine(process.argv);
+  var REQUIRED_FIELDS = parseQueriesFromCommandLine(process.argv);
   var OUTPUT_FILE = process.argv[process.argv.length-1];
 
   var files = FileUtils.generateEnumeratedFileNames('../raw/json/food-facts', 'json', 7);
