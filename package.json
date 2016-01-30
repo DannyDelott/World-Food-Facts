@@ -6,7 +6,11 @@
   "scripts": {
     "start": "npm run lint && npm run test",
     "test": "./node_modules/mocha/bin/mocha ./parser/test/*.spec.js",
-    "lint": "./node_modules/jshint/bin/jshint  ./parser/**/*.js"
+    "lint": "./node_modules/jshint/bin/jshint  ./parser/**/*.js",
+    "watch": "npm-watch"
+  },
+  "watch": {
+    "start": "parser/*.js"
   },
   "author": "",
   "license": "ISC",
@@ -15,6 +19,7 @@
     "expect": "^1.13.4",
     "jshint": "^2.9.1",
     "mocha": "^2.4.2",
+    "npm-watch": "^0.1.1",
     "performance-now": "^0.2.0"
   }
 }
