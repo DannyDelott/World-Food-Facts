@@ -20,13 +20,15 @@ function parseRecordsByRequiredFields (records, fields) {
 }
 
 /**
- * Get a list of command line arguments that represent the required fields.
+ * Get a list of command line arguments that represent the queries.
  * @param {Array<String>} args - all arguments passed in via command line
- * @return {Array<Query>} fields - list of all queries and output files
+ * @return {Array<Query>} queries - list of all queries
  */
 function parseQueriesFromCommandLine (args) {
   var isArgument = false;
-  return args.filter(function (argument) {
+  var queries = [];
+  var query = {};
+  return args.forEach(function (argument) {
     if (!isArgument && argument === '-f') {
       isArgument = true;
       return false;
