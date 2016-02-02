@@ -25,22 +25,32 @@ function parseRecordsByRequiredFields (records, fields) {
  * @return {Array<Query>} queries - list of all queries
  */
 function parseQueriesFromCommandLine (args) {
-  var isArgument = false;
-  var queries = [];
-  var query = {};
-  return args.forEach(function (argument) {
-    if (!isArgument && argument === '-f') {
-      isArgument = true;
-      return false;
-    } else if (isArgument && argument !== '-o') {
-      return true;
-    } else if (isArgument && argument === '-o') {
-      isArgument = false;
-      return false;
-    } else {
-      return false;
-    }
-  });
+  return splitAndFilter(args.join(), '-f')
+    .reduce(function(queries, query){
+      var outputFlag = query.split('-o');
+      var fields = splitAndFilter(outputFlag[0], ',')
+        .reduce(function(fields, field){
+          if (field.length > 0) {
+            fields.push(field);
+          }
+          return fields;
+        }, []);
+      var output = splitAndFilter(outputFlag[1], ',')
+        .reduce(function(file, filename){
+          console.log(filename);
+          return filename.length > 0 ? filename: file;
+        }, '');
+      queries.push({ fields, output });
+      return queries;
+    }, []);
+
+  function splitAndFilter(outputString, delimiter){
+    return outputString
+      .split(delimiter)
+      .filter(function(str){
+        return str.length > 0;
+      });
+  }
 }
 
 /**

@@ -23,7 +23,9 @@ describe('ParserUtils', function () {
     it('it should should parse the required fields for a single query', function () {
       var args = ['-f', 'countries', 'salt_100g', '-o', 'results/salt-100g-by-country.json'];
       var fields = ParserUtils.parseQueriesFromCommandLine(args);
-      var expectedFields = [{ fields: ['countries', 'salt_100g'] }];
+      var expectedFields = [
+        { fields: ['countries', 'salt_100g'], output: 'results/salt-100g-by-country.json' }
+      ];
       expect(fields).toEqual(expectedFields);
     });
 
