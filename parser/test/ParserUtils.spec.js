@@ -21,7 +21,12 @@ describe('ParserUtils', function () {
 
   describe('#parseQueriesFromCommandLine', function () {
     it('it should should parse the required fields for a single query', function () {
-      var args = ['-f', 'countries', 'salt_100g', '-o', 'results/salt-100g-by-country.json'];
+      var args = [
+        'node',
+        './parser/index.js',
+        '-f', 'countries', 'salt_100g', '-o', 'results/salt-100g-by-country.json',
+        '-f', 'countries', 'saturated_fat_100g', '-o', 'results/saturated-fat-100g-by-country.json'
+      ];
       var fields = ParserUtils.parseQueriesFromCommandLine(args);
       var expectedFields = [
         { fields: ['countries', 'salt_100g'], output: 'results/salt-100g-by-country.json' }
@@ -31,8 +36,11 @@ describe('ParserUtils', function () {
 
     it('it should should parse the required fields for multiple queries', function () {
       var args = [
+        'node',
+        './parser/index.js',
         '-f', 'countries', 'salt_100g', '-o', 'results/salt-100g-by-country.json',
-        '-f', 'countries', 'sodium_100g', '-o', 'results/sodium-100g-by-country.json'
+        '-f', 'countries', 'sodium_100g', '-o', 'results/sodium-100g-by-country.json',
+        '-f', 'countries', 'saturated_fat_100g', '-o', 'results/saturated-fat-100g-by-country.json'
       ];
       var fields = ParserUtils.parseQueriesFromCommandLine(args);
       var expectedFields = [
