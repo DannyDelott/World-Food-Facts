@@ -33,21 +33,10 @@ describe('FileUtils', function () {
     });
   });
 
-  describe('#generateEnumeratedFileNames', function () {
-    it('should generate an array of 5 filenames', function () {
-      var filepath = 'test-file';
-      var extension = 'json';
-      var quantity = 5;
-      var filenames = FileUtils.generateEnumeratedFileNames(filepath, extension, quantity);
-      var expectedFileNames= [
-        'test-file1.json',
-        'test-file2.json',
-        'test-file3.json',
-        'test-file4.json',
-        'test-file5.json'
-      ];
-      expect(Array.isArray(filenames)).toBe(true);
-      expect(filenames).toEqual(expectedFileNames);
+  describe('#getJsonFiles', function () {
+    it('should get the json filenames from the mocks directory', function () {
+      var filenames = FileUtils.getJsonFiles('parser/test/mocks/');
+      expect(filenames.length).toEqual(3);
     });
   });
 });

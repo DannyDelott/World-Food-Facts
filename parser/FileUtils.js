@@ -25,22 +25,20 @@ var loadDataFromFiles = function (filenames) {
 };
 
 /**
- * Generate a list of enumerated filenames. Since raw data isn't changing, there
- * is no real need to have it read the filenames from disk, we can just generate them.
- * @param {String} filepath - filepath minus the extension
- * @param {String} extension - file type, ie: json
- * @param {Number} quantity - number of files to generate
- * @return {Array<String>} filenames - generated filenames
+ * Get a list of json files in the directory.
+ * @param {String} directory - directory to scan
+ * @return {Array<String>} filenames - json files in the directory
  */
-var generateEnumeratedFileNames = function (filepath, extension, quantity) {
-  return Array.apply(null, new Array(quantity)).map(function (item, i) { 
-    return filepath + (i+1) + '.' + extension; 
+var getJsonFiles = function (directory) {
+  var files = fs.readdirSync(directory);
+  return files.map(function(file){
+    return directory.concat(file);
   });
 };
 
-module.exports = { 
+module.exports = {
   loadDataFromFiles,
-  generateEnumeratedFileNames,
+  getJsonFiles,
   exportRecords
 };
 

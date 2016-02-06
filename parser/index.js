@@ -6,6 +6,7 @@
  * node parse-records-by-required-fields.js -f <field1> <field2> -o <outputfilename>
  */
 (function () {
+  var fs = require('fs');
   var now = require('performance-now');
   var FileUtils = require('./FileUtils');
   var ParserUtils = require('./ParserUtils');
@@ -13,8 +14,7 @@
 
   var START_TIMER = now();
   var QUERIES = ParserUtils.parseQueriesFromCommandLine(process.argv);
-  var FILES = FileUtils.generateEnumeratedFileNames('../data/json/food-facts', 'json', 8);
-
+  var FILES = FileUtils.getJsonFiles('../data/json/');
   console.log('Loading data from', FILES.length, 'file(s)...');
   var data = FileUtils.loadDataFromFiles(FILES);
 
