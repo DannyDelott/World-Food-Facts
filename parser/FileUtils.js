@@ -13,7 +13,7 @@ var exportRecords = function (records, outputFile) {
 
 
 /**
- * Import data from a list of json files.
+ * Syncronously import data from a list of json files.
  * @param {Array<String>} filenames - list of filepaths
  * @return {Array<Object>} data - list of records
  */
