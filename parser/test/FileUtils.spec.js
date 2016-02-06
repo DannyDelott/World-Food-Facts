@@ -21,7 +21,7 @@ describe('FileUtils', function () {
   });
 
   describe('#loadDataFromFiles', function () {
-    it('should load data from json files into a flat array', function () {
+    it('should load data from multiple json files into one flat array', function () {
       var filenames = [
         './test/mocks/mock-facts1.json',
         './test/mocks/mock-facts2.json',

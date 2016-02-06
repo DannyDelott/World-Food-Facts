@@ -3,7 +3,7 @@ var expect      = require('expect'),
 
 describe('ParserUtils', function () {
   describe('#parseRecordsByRequiredFields', function () {
-    it('it should should get the list of records with two required fields', function () {
+    it('should get the list of records with two required fields', function () {
       var records = [
         { country: 'DE', stores: 'Aldi' },
         { country: 'DE', stores: 'Aldi' },
@@ -20,7 +20,7 @@ describe('ParserUtils', function () {
   });
 
   describe('#parseQueriesFromCommandLine', function () {
-    it('should should parse the required fields for a single query', function () {
+    it('should parse the required fields for a single query', function () {
       var args = [
         'node',
         './parser/index.js',
@@ -37,7 +37,7 @@ describe('ParserUtils', function () {
       expect(fields).toEqual(expectedFields);
     });
 
-    it('it should should parse the required fields for multiple queries', function () {
+    it('should parse the required fields for multiple queries', function () {
       var args = [
         'node',
         './parser/index.js',
