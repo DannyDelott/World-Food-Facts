@@ -23,7 +23,7 @@ npm start
 
 ```bash
 cd data/scripts
-bash split-csv-into-json-files.sh <csv-file> ../json/ food-facts 10000
+bash split-csv-into-json-files.sh <csv-file> ../json/ food-facts 1000
 cd ..
 bash queries.sh
 ```
