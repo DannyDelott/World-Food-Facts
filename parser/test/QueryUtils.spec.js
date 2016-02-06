@@ -35,9 +35,10 @@ describe('QueryUtils', function () {
         }
       ];
       var matchingRows = QueryUtils.runQueries(queries, data);
-      expect(matchingRows.length).toEqual(2);
+      expect(matchingRows[0].length).toEqual(1);
       expect(matchingRows[0][0].countries).toEqual('United Kingdom');
       expect(matchingRows[0][0].proteins_100g).toEqual(3.6);
+      expect(matchingRows[1].length).toEqual(1);
       expect(matchingRows[1][0].countries).toEqual('United States');
       expect(matchingRows[1][0].sodium_100g).toEqual(0.703);
     });
