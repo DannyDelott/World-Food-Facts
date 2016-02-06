@@ -20,7 +20,7 @@ describe('ParserUtils', function () {
   });
 
   describe('#parseQueriesFromCommandLine', function () {
-    it('it should should parse the required fields for a single query', function () {
+    it('should should parse the required fields for a single query', function () {
       var args = [
         'node',
         './parser/index.js',
@@ -29,7 +29,10 @@ describe('ParserUtils', function () {
       ];
       var fields = ParserUtils.parseQueriesFromCommandLine(args);
       var expectedFields = [
-        { fields: ['countries', 'salt_100g'], output: 'results/salt-100g-by-country.json' }
+        { fields: ['countries', 'salt_100g'], output: 'results/salt-100g-by-country.json' },
+        { fields: ['countries', 'saturated_fat_100g'],
+          output: 'results/saturated-fat-100g-by-country.json'
+        }
       ];
       expect(fields).toEqual(expectedFields);
     });
@@ -45,7 +48,10 @@ describe('ParserUtils', function () {
       var fields = ParserUtils.parseQueriesFromCommandLine(args);
       var expectedFields = [
         { fields: ['countries', 'salt_100g'], output: 'results/salt-100g-by-country.json' },
-        { fields: ['countries', 'sodium_100g'], output: 'results/sodium-100g-by-country.json' }
+        { fields: ['countries', 'sodium_100g'], output: 'results/sodium-100g-by-country.json' },
+        { fields: ['countries', 'saturated_fat_100g'],
+          output: 'results/saturated-fat-100g-by-country.json'
+        }
       ];
       expect(fields).toEqual(expectedFields);
     });

@@ -25,7 +25,7 @@ function parseRecordsByRequiredFields (records, fields) {
  * @return {Array<Query>} queries - list of all queries
  */
 function parseQueriesFromCommandLine (args) {
-  return splitAndFilter(args.join(), '-f')
+  return splitAndFilter(args.slice(3).join(), '-f,')
     .reduce(function(queries, query){
       var outputFlag = query.split('-o');
       var fields = splitAndFilter(outputFlag[0], ',')
@@ -37,7 +37,6 @@ function parseQueriesFromCommandLine (args) {
         }, []);
       var output = splitAndFilter(outputFlag[1], ',')
         .reduce(function(file, filename){
-          console.log(filename);
           return filename.length > 0 ? filename: file;
         }, '');
       queries.push({ fields, output });
