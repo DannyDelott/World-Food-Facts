@@ -1,9 +1,3 @@
-/**
- * Holds information about a query.
- * @typedef {Query} Query
- * @property {Array} fields - the required fields in each result
- * @property {String} output - the location to save the results
- */
 
 /**
  * Return only records that contain a value for all the specified fields.

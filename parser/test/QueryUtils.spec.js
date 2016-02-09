@@ -18,7 +18,7 @@ describe('QueryUtils', function () {
       };
       var results = QueryUtils.runQuery(query, data);
       expect(results.data.length).toEqual(1);
-      expect(results.output).toEqual(query.output);
+      expect(results.query).toEqual(query);
       expect(results.data[0].countries).toEqual('United Kingdom');
       expect(results.data[0].proteins_100g).toEqual(3.6);
     });
@@ -39,7 +39,7 @@ describe('QueryUtils', function () {
 
       results.forEach(function(result, i) {
         expect(result.data.length).toEqual(1);
-        expect(result.output).toEqual(queries[i].output);
+        expect(result.query).toEqual(queries[i]);
       });
       expect(results[0].data[0].countries).toEqual('United Kingdom');
       expect(results[0].data[0].proteins_100g).toEqual(3.6);

@@ -24,16 +24,14 @@ var sumOverMeasure = function (dimension, measure, data) {
  * Return the result of running a single query.
  * @param {Object} query - the query to perform
  * @param {Array<Object>} data - the records to process
- * @return {Object} result
- * @return {Array<Object>} data - the matching rows for the query
- * @return {String} output - the output file to save the query
+ * @return {QueryResult} result - the result of the query
  */
 var runQuery = function (query, data) {
   var result = {
     data: data.filter(function(row){
       return _rowContainsRequiredFields(row, query.fields);
     }),
-    output: query.output
+    query: query
   };
   return result;
 };
@@ -42,7 +40,7 @@ var runQuery = function (query, data) {
  * Return the results of running multiple queries.
  * @param {Array<Object>} queries - the queries to perform
  * @param {Array<Object>} data - the records to process
- * @return {Array<Array<Object>>} results - the matching rows per query
+ * @return {Array<QueryResult>} results - the matching rows per query
  */
 var runQueries = function (queries, data) {
   var results = queries.map(function(query) {
