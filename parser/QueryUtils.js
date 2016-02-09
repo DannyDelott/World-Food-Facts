@@ -45,11 +45,10 @@ var runQuery = function (query, data) {
  * @return {Array<Array<Object>>} results - the matching rows per query
  */
 var runQueries = function (queries, data) {
-  return queries.reduce(function(result, query) {
-    var matchingRows = runQuery(query, data);
-    result.push(matchingRows);
-    return result;
-  }, []);
+  var results = queries.map(function(query) {
+    return runQuery(query, data);
+  });
+  return results;
 };
 
 /**
