@@ -16,11 +16,11 @@ describe('QueryUtils', function () {
         fields: ['countries','proteins_100g'],
         output: 'results/proteins-100g-by-country.json'
       };
-      var matchingRows = QueryUtils.runQuery(query, data);
-      expect(matchingRows.data.length).toEqual(1);
-      expect(matchingRows.output).toEqual(query.output);
-      expect(matchingRows.data[0].countries).toEqual('United Kingdom');
-      expect(matchingRows.data[0].proteins_100g).toEqual(3.6);
+      var results = QueryUtils.runQuery(query, data);
+      expect(results.data.length).toEqual(1);
+      expect(results.output).toEqual(query.output);
+      expect(results.data[0].countries).toEqual('United Kingdom');
+      expect(results.data[0].proteins_100g).toEqual(3.6);
     });
   });
   describe('#runQueries', function () {
@@ -32,16 +32,19 @@ describe('QueryUtils', function () {
         },
         {
           fields: ['countries','sodium_100g'],
-          output: 'results/proteins-100g-by-country.json'
+          output: 'results/sodium-100g-by-country.json'
         }
       ];
-      var matchingRows = QueryUtils.runQueries(queries, data);
-      expect(matchingRows[0].length).toEqual(1);
-      expect(matchingRows[0][0].countries).toEqual('United Kingdom');
-      expect(matchingRows[0][0].proteins_100g).toEqual(3.6);
-      expect(matchingRows[1].length).toEqual(1);
-      expect(matchingRows[1][0].countries).toEqual('United States');
-      expect(matchingRows[1][0].sodium_100g).toEqual(0.703);
+      var results = QueryUtils.runQueries(queries, data);
+
+      results.forEach(function(result, i) {
+        expect(result.data.length).toEqual(1);
+        expect(result.output).toEqual(queries[i].output);
+      });
+      expect(results[0].data[0].countries).toEqual('United Kingdom');
+      expect(results[0].data[0].proteins_100g).toEqual(3.6);
+      expect(results[1].data[0].countries).toEqual('United States');
+      expect(results[1].data[0].sodium_100g).toEqual(0.703);
     });
   });
 });
