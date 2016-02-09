@@ -17,9 +17,10 @@ describe('QueryUtils', function () {
         output: 'results/proteins-100g-by-country.json'
       };
       var matchingRows = QueryUtils.runQuery(query, data);
-      expect(matchingRows.length).toEqual(1);
-      expect(matchingRows[0].countries).toEqual('United Kingdom');
-      expect(matchingRows[0].proteins_100g).toEqual(3.6);
+      expect(matchingRows.data.length).toEqual(1);
+      expect(matchingRows.output).toEqual(query.output);
+      expect(matchingRows.data[0].countries).toEqual('United Kingdom');
+      expect(matchingRows.data[0].proteins_100g).toEqual(3.6);
     });
   });
   describe('#runQueries', function () {
