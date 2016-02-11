@@ -10,22 +10,18 @@ describe('QueryResult', function () {
   });
   describe('#result', function () {
     it('should have a property called result', function(){
-      var queryResult = new QueryResult();
-      expect(queryResult.hasOwnProperty('result')).toEqual(true);
+      expect(QueryResult.prototype.hasOwnProperty('result')).toEqual(true);
     });
     it('should be an array', function(){
-      var queryResult = new QueryResult();
-      expect(queryResult.result).toBeAn('array');
+      expect(QueryResult.prototype.result).toBeAn('array');
     });
   });
   describe('#query', function () {
     it('should have a property called query', function(){
-      var queryResult = new QueryResult();
-      expect(queryResult.hasOwnProperty('result')).toEqual(true);
+      expect(QueryResult.prototype.hasOwnProperty('result')).toEqual(true);
     });
     it('should be a Query instance', function(){
-      var queryResult = new QueryResult();
-      expect(queryResult.query).toBeA(Query);
+      expect(QueryResult.prototype.query).toBeA(Query);
     });
   });
 });

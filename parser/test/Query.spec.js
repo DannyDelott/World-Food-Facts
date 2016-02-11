@@ -9,22 +9,18 @@ describe('Query', function () {
   });
   describe('#fields', function () {
     it('should have a property called fields', function(){
-      var query = new Query();
-      expect(query.hasOwnProperty('fields')).toEqual(true);
+      expect(Query.prototype.hasOwnProperty('fields')).toEqual(true);
     });
     it('should be an array', function(){
-      var query = new Query();
-      expect(query.fields).toBeAn('array');
+      expect(Query.prototype.fields).toBeAn('array');
     });
   });
   describe('#output', function () {
     it('should have a property called output', function(){
-      var query = new Query();
-      expect(query.hasOwnProperty('output')).toEqual(true);
+      expect(Query.prototype.hasOwnProperty('output')).toEqual(true);
     });
     it('should be a string', function(){
-      var query = new Query();
-      expect(query.output).toBeA('string');
+      expect(Query.prototype.output).toBeA('string');
     });
   });
 });
