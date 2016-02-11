@@ -8,6 +8,6 @@ var Query = function(fields, output){
   this.output = output ? output : this.output;
 };
 Query.prototype.fields = [];
-Query.prototype.output = new String();
+Query.prototype.output = '';
 
 module.exports = Query;

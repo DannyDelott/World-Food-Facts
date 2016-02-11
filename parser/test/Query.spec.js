@@ -4,8 +4,7 @@ var Query = require('../types/Query');
 describe('Query', function () {
   describe('constructor', function () {
     it('should create a new Query instance', function(){
-      var query = new Query();
-      expect(query).toBeA(Query);
+      expect(new Query()).toBeA(Query);
     });
   });
   describe('#fields', function () {
@@ -15,7 +14,7 @@ describe('Query', function () {
     });
     it('should be an array', function(){
       var query = new Query();
-      expect(query.fields).toBeAn(Array);
+      expect(query.fields).toBeAn('array');
     });
   });
   describe('#output', function () {
@@ -25,7 +24,7 @@ describe('Query', function () {
     });
     it('should be a string', function(){
       var query = new Query();
-      expect(query.output).toBeA(String);
+      expect(query.output).toBeA('string');
     });
   });
 });
