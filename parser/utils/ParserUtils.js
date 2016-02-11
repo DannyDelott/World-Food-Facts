@@ -1,4 +1,3 @@
-
 /**
  * Return only records that contain a value for all the specified fields.
  * @param {Array<Object>} records

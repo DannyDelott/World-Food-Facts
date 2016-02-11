@@ -1,6 +1,6 @@
 var expect = require('expect');
-var Query = require('../types/Query');
-var QueryResult = require('../types/QueryResult');
+var Query = require('../Query');
+var QueryResult = require('../QueryResult');
 
 describe('QueryResult', function () {
   describe('constructor', function () {

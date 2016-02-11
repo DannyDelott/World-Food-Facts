@@ -12,23 +12,22 @@
   var QueryUtils = require('./QueryUtils');
 
   var START_TIMER = now();
-  var QUERIES = ParserUtils.parseQueriesFromCommandLine(process.argv);
-  var FILES = FileUtils.getJsonFiles('../data/json/');
+  var queries = ParserUtils.parseQueriesFromCommandLine(process.argv);
+  var files = FileUtils.getJsonFiles('../data/json/');
 
-  console.log('Loading data from', FILES.length, 'file(s)...');
-  var data = FileUtils.loadDataFromFiles(FILES);
+  console.log('Loading data from', files.length, 'file(s)...');
+  var data = FileUtils.loadDataFromFiles(files);
 
   console.log('Looking up records...');
-  var results = QueryUtils.runQueries(QUERIES, data);
+  var results = QueryUtils.runQueries(queries, data);
 
   console.log('Exporting results...');
-  FileUtils.exportRecords(results, OUTPUT_FILE);
+  results.forEach(function(result) {
+    // TODO: export the results
+  });
 
   var END_TIMER = now();
   var TIME = END_TIMER - START_TIMER;
-
-  console.log('Total # of rows:\t' + dataMerged.length);
-  console.log('Total # of results:\t' + cleanDataMerged.length);
-  console.log('Required fields:\t' + REQUIRED_FIELDS.join('\t'));
   console.log('Execution time:\t\t' + ParserUtils.millisecondsToTime(TIME));
+  // TODO: print information
 })();

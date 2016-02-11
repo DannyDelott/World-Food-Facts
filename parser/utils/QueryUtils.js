@@ -1,4 +1,4 @@
-var QueryResult = require('./types/QueryResult');
+var QueryResult = require('../QueryResult');
 
 /**
  * Returns a set of data grouping by the dimension and summing over all the

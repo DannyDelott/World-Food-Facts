@@ -1,5 +1,5 @@
-var expect      = require('expect'),
-    ParserUtils = require('../ParserUtils');
+var expect = require('expect');
+var ParserUtils = require('../utils/ParserUtils');
 
 describe('ParserUtils', function () {
   describe('#parseRecordsByRequiredFields', function () {

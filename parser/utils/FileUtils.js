@@ -1,16 +1,26 @@
 var fs = require('fs');
 
 /**
- * Save a list of records to a file synchronously.
- * @param {Array<Object>} records - list of records
+ * Save a single query's results to a file synchronously.
+ * @param {Array<Object>} result - list of records
  * @param {String} outputFile - file to save to
  */
-var exportRecords = function (records, outputFile) {
-  var stringified = JSON.stringify(records) + '\n';
+var exportQueryResult = function (result, outputFile) {
+  var stringified = JSON.stringify(result);
   var options = { encoding: 'utf8' };
   fs.writeFileSync(outputFile, stringified, options);
 };
 
+/**
+ * Save a list of querys' results to their outputfiles file synchronously.
+ * @param {Array<Array<Object>>} result - list of records
+ * @param {String} outputFile - file to save to
+ */
+var exportQueryResults = function (result, outputFile) {
+  var stringified = JSON.stringify(result);
+  var options = { encoding: 'utf8' };
+  fs.writeFileSync(outputFile, stringified, options);
+};
 
 /**
  * Syncronously import data from a list of json files.
@@ -39,6 +49,5 @@ var getJsonFiles = function (directory) {
 module.exports = {
   loadDataFromFiles,
   getJsonFiles,
-  exportRecords
+  exportQueryResult
 };
-

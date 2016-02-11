@@ -1,13 +1,13 @@
 var expect = require('expect');
-var FileUtils = require('../FileUtils');
-var QueryUtils = require('../QueryUtils');
-var Query = require('../types/Query');
-var QueryResult = require('../types/QueryResult');
+var FileUtils = require('../utils/FileUtils');
+var QueryUtils = require('../utils/QueryUtils');
+var Query = require('../Query');
+var QueryResult = require('../QueryResult');
 
 var filenames = [
-  './test/mocks/mock-facts1.json',
-  './test/mocks/mock-facts2.json',
-  './test/mocks/mock-facts3.json',
+  '../test/mocks/mock-facts1.json',
+  '../test/mocks/mock-facts2.json',
+  '../test/mocks/mock-facts3.json',
 ];
 var data = FileUtils.loadDataFromFiles(filenames);
 
