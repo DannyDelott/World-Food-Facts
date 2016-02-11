@@ -1,3 +1,4 @@
+var QueryResult = require('./types/QueryResult');
 
 /**
  * Returns a set of data grouping by the dimension and summing over all the
@@ -22,28 +23,25 @@ var sumOverMeasure = function (dimension, measure, data) {
 
 /**
  * Return the result of running a single query.
- * @param {Object} query - the query to perform
+ * @param {Query} query - the query to perform
  * @param {Array<Object>} data - the records to process
  * @return {QueryResult} result - the result of the query
  */
 var runQuery = function (query, data) {
-  var result = {
-    data: data.filter(function(row){
-      return _rowContainsRequiredFields(row, query.fields);
-    }),
-    query: query
-  };
-  return result;
+  var result = data.filter(function (row) {
+    return _rowContainsRequiredFields(row, query.fields);
+  });
+  return new QueryResult(result, query);
 };
 
 /**
  * Return the results of running multiple queries.
- * @param {Array<Object>} queries - the queries to perform
+ * @param {Array<Queries>} queries - the queries to perform
  * @param {Array<Object>} data - the records to process
  * @return {Array<QueryResult>} results - the matching rows per query
  */
 var runQueries = function (queries, data) {
-  var results = queries.map(function(query) {
+  var results = queries.map(function (query) {
     return runQuery(query, data);
   });
   return results;
@@ -56,8 +54,8 @@ var runQueries = function (queries, data) {
  * @return {Boolean} containsRequiredFields
  */
 var _rowContainsRequiredFields = function (row, requiredFields) {
-  return requiredFields.reduce(function(hasFields, field){
-    return hasFields ? row.hasOwnProperty(field) && row[field] : false;
+  return requiredFields.reduce(function (containsFields, field) {
+    return containsFields ? row.hasOwnProperty(field) && row[field] : false;
   }, true);
 };
 
