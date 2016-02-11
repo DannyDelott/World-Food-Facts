@@ -5,8 +5,7 @@ var QueryResult = require('../types/QueryResult');
 describe('QueryResult', function () {
   describe('constructor', function () {
     it('should create a new QueryResult instance', function(){
-      var queryResult = new QueryResult();
-      expect(queryResult).toBeA(QueryResult);
+      expect(new QueryResult()).toBeA(QueryResult);
     });
   });
   describe('#result', function () {
@@ -16,7 +15,7 @@ describe('QueryResult', function () {
     });
     it('should be an array', function(){
       var queryResult = new QueryResult();
-      expect(queryResult.result).toBeAn(Array);
+      expect(queryResult.result).toBeAn('array');
     });
   });
   describe('#query', function () {
