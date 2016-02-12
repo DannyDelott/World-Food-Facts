@@ -1,3 +1,5 @@
+var QueryUtils = require('./utils/QueryUtils');
+
 /**
  * Holds information about a query.
  * @property {Array} fields - the required fields in each result
@@ -9,5 +11,9 @@ var Query = function(fields, output){
 };
 Query.prototype.fields = [];
 Query.prototype.output = '';
+Query.prototype.requiredFields = false;
+Query.prototype.run = function(data){
+  return QueryUtils.runQuery(query, data);
+};
 
 module.exports = Query;
