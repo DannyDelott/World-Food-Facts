@@ -8,7 +8,7 @@ var Fields = function(fields, mode){
   this.fields = fields ? fields : this.fields;
   this.mode = mode ? mode : this.mode;
 };
-Query.prototype.fields = [];
-Query.prototype.mode = 'ALL';
+Fields.prototype.fields = [];
+Fields.prototype.mode = 'ALL';
 
 module.exports = Fields;
