@@ -11,9 +11,6 @@ describe('Query', function () {
     it('should have a property called fields', function(){
       expect(Query.prototype.hasOwnProperty('fields')).toEqual(true);
     });
-    it('should be an array', function(){
-      expect(Query.prototype.fields).toBeAn('array');
-    });
   });
   describe('#output', function () {
     it('should have a property called output', function(){
@@ -21,6 +18,14 @@ describe('Query', function () {
     });
     it('should be a string', function(){
       expect(Query.prototype.output).toBeA('string');
+    });
+  });
+  describe('#run', function () {
+    it('should have a property called run', function(){
+      expect(Query.prototype.hasOwnProperty('output')).toEqual(true);
+    });
+    it('should be a function', function(){
+      expect(Query.prototype.run).toBeA('function');
     });
   });
 });

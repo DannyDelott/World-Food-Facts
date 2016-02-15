@@ -9,11 +9,10 @@ var Query = function(fields, output){
   this.fields = fields ? fields : this.fields;
   this.output = output ? output : this.output;
 };
-Query.prototype.fields = [];
+Query.prototype.fields = null;
 Query.prototype.output = '';
-Query.prototype.requiredFields = false;
 Query.prototype.run = function(data){
-  return QueryUtils.runQuery(query, data);
+  return QueryUtils.runQuery(this, data);
 };
 
 module.exports = Query;
