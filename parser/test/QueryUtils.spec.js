@@ -1,6 +1,7 @@
 var expect = require('expect');
 var FileUtils = require('../utils/FileUtils');
 var QueryUtils = require('../utils/QueryUtils');
+var Fields = require('../Fields');
 var Query = require('../Query');
 var QueryResult = require('../QueryResult');
 
@@ -13,10 +14,10 @@ var data = FileUtils.loadDataFromFiles(filenames);
 
 describe('QueryUtils', function () {
   describe('#runQuery', function () {
-    var fields = ['countries', 'proteins_100g'];
+    var fields = new Fields(['countries', 'proteins_100g'], 'ALL');;
     var output = 'results/proteins-100g-by-country.json';
     var query = new Query(fields, output);
-    var result = QueryUtils.runQuery(query, data);
+    var result = query.run(data);
     it('should return a QueryResult instance', function () {
       expect(result).toBeA(QueryResult);
     });
@@ -29,16 +30,9 @@ describe('QueryUtils', function () {
   });
 
   describe('#runQueries', function () {
-    var queries = [
-      {
-        fields: ['countries','proteins_100g'],
-        output: 'results/proteins-100g-by-country.json'
-      },
-      {
-        fields: ['countries','sodium_100g'],
-        output: 'results/sodium-100g-by-country.json'
-      }
-    ];
+    var query1 = new Query(new Fields(['countries','proteins_100g'], 'ALL'), 'results/proteins-100g-by-country.json');
+    var query2 = new Query(new Fields(['countries','sodium_100g'], 'ALL'), 'results/sodium-100g-by-country.json');
+    var queries = [query1, query2];
     var results = QueryUtils.runQueries(queries, data);
     it('should return an array of QueryResult instances', function () {
       expect(results).toBeAn('array');
