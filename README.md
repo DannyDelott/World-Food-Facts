@@ -9,32 +9,33 @@ __          __        _     _   ______              _   ______         _
 
 Dataset available here: https://www.kaggle.com/openfoodfacts/world-food-facts
 
-#### Installation
-- Download and unzip the dataset: https://www.kaggle.com/openfoodfacts/world-food-facts
+#### 1. Installation
+- Open Terminal and run the following commands:
 
 ```bash
 git clone https://github.com/DannyDelott/World-Food-Facts.git
 cd World-Food-Facts
 npm install
-npm start
 ```
 
-#### Extracting the sample from the dataset
-- Replace `<csv-file>` with the path to `FoodFacts.csv`
+#### 2. Extracting the sample from the dataset
+- Download and unzip the dataset: https://www.kaggle.com/openfoodfacts/world-food-facts
+- Copy `FoodFacts.csv` from the dataset to the `data/` directory
+- Run the following commands in Terminal:
 
 ```bash
 cd data
-bash csv-to-sqlite3.sh <csv-file>
+bash csv-to-sqlite3.sh
 ```
 
 #### npm scripts
 
 Command | Description
 ---|---
-`npm start` | Run the linter and run the tests
+`npm run build` | Run the linter and run the tests
 `npm run lint` | Lint all javascript code
 `npm run test` | Run the mocha tests
-`npm run watch` | Watch js files for changes and run `npm start` automatically
+`npm run watch` | Watch js files for changes and run `npm run build` automatically
 
 #### System Requirements
 - Node v5.0.0 (will likely work on older versions)

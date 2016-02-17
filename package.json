@@ -4,13 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "npm run lint && npm run test",
+    "build": "npm run lint && npm run test",
     "test": "./node_modules/mocha/bin/mocha ./parser/test/index.js",
     "lint": "./node_modules/jshint/bin/jshint  ./parser/**/*.js",
     "watch": "npm-watch"
   },
   "watch": {
-    "start": "parser/*.js"
+    "build": "parser/*.js"
   },
   "author": "",
   "license": "ISC",
