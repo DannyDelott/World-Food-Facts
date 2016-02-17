@@ -1,6 +1,5 @@
 .DS_Store
-data/json/*.*
-data/results/*.*
 FoodFacts.csv
-node_modules/
+foodfacts.db
+node_modules
 npm-debug.log
