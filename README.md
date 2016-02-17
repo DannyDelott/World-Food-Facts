@@ -14,6 +14,7 @@ Dataset available here: https://www.kaggle.com/openfoodfacts/world-food-facts
 
 ```bash
 git clone https://github.com/DannyDelott/World-Food-Facts.git
+cd World-Food-Facts
 npm install
 npm start
 ```
@@ -22,10 +23,8 @@ npm start
 - Replace `<csv-file>` with the path to `FoodFacts.csv`
 
 ```bash
-cd data/scripts
-bash split-csv-into-json-files.sh <csv-file> ../json/ food-facts 1000
-cd ..
-bash queries.sh
+cd data
+bash csv-to-sqlite3.sh <csv-file>
 ```
 
 #### npm scripts
