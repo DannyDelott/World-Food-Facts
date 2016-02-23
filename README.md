@@ -18,7 +18,7 @@ cd World-Food-Facts
 npm install
 ```
 
-#### 2. Extracting the sample from the dataset
+#### 2. Building the dataset
 - Download and unzip the dataset: https://www.kaggle.com/openfoodfacts/world-food-facts
 - Copy `FoodFacts.csv` from the dataset to the `data/` directory
 - Run the following commands in Terminal:
@@ -27,6 +27,14 @@ npm install
 cd data
 bash csv-to-sqlite3.sh
 ```
+
+#### 3. Extracting the sample from the dataset
+
+```bash
+cd ../parser
+node index.js
+```
+
 
 #### npm scripts
 
