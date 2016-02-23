@@ -16,7 +16,7 @@ var loadDatabase = function(file) {
 
 
 /**
- * Run a SQL query and returns all of the matching results in a promise.
+ * Run a SQL query and return all of the matching results in a promise.
  * @param {Object} db - The sqlite3 database object
  * @param {String} query - The query to run
  * @return {Promise} rows - an array of matching rows
