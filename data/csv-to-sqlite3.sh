@@ -1,4 +1,4 @@
 #!/bin/sh
 
 echo "Creating SQLite3 database..."
-sqlite3 < commands.txt
+sqlite3 < db.txt
