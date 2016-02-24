@@ -25,7 +25,7 @@ var runQuery = function(db, query) {
  return new Promise(function(resolve, reject) {
    db.all(query, function(error, rows) {
      if (error) reject(error);
-     else { console.log(rows); resolve(rows); }
+     else resolve(rows); 
    });
  });
 };

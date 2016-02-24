@@ -16,5 +16,6 @@ Utils
   });
 
 function _exportResults(results) {
+  console.log(results);
   fs.writeFileSync(outputFile, JSON.stringify(results));
 }
