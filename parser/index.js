@@ -1,7 +1,7 @@
-var file = '../data/foodfacts.db';
-var outputFile = '../data/result.json';
-var query = require('../data/query');
+var file = process.argv[2];
+var outputFile = process.argv[3];
 
+var query = require('../data/query');
 var fs = require('fs');
 var Utils = require('./utils');
 var db = Utils.loadDatabase(file);
