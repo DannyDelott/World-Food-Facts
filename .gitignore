@@ -3,3 +3,4 @@ FoodFacts.csv
 foodfacts.db
 node_modules
 npm-debug.log
+result.json
