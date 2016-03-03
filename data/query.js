@@ -1,6 +1,6 @@
 var columns = [
   'countries_en',
-  'COUNT(countries_en) as num_products', 
+  'COUNT(countries_en) as num_products',
   'SUM(proteins_100g) as protein',
   'SUM(salt_100g) as salt',
   'SUM(sodium_100g) as sodium',
