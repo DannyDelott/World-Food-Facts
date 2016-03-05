@@ -1,7 +1,7 @@
 var file = process.argv[2];
 var outputFile = process.argv[3];
 
-var query = require('../data/query');
+var query = require('./queries');
 var fs = require('fs');
 var Utils = require('./utils');
 var db = Utils.loadDatabase(file);
