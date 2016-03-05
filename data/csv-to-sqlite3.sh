@@ -12,3 +12,4 @@ sqlite3 < /tmp/foodfacts.txt
 
 echo "Removing /tmp/foodfacts.txt..."
 rm /tmp/foodfacts.txt
+
