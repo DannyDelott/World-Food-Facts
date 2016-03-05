@@ -1,5 +1,6 @@
 var fs = require('fs');
 var sqlite3 = require("sqlite3").verbose();
+var Result = require('./Result');
 
 /**
  * Load a database file into a sqlite3 database object
@@ -14,18 +15,17 @@ var loadDatabase = function(file) {
   return new sqlite3.Database(file);
 };
 
-
 /**
  * Run a SQL query and return all of the matching results in a promise.
  * @param {Object} db - The sqlite3 database object
  * @param {String} query - The query to run
- * @return {Promise} rows - an array of matching rows
+ * @return {Promise<Result>} result - the query result
  */
 var runQuery = function(db, query) {
  return new Promise(function(resolve, reject) {
    db.all(query, function(error, rows) {
      if (error) reject(error);
-     else resolve(rows);
+     else resolve(new Result(query, rows));
    });
  });
 };
@@ -34,7 +34,7 @@ var runQuery = function(db, query) {
  * Run a list of queries and return the matching rows in an array of promises.
  * @param {Object} db - The sqlite3 database object
  * @param {Array<String>} queries - The queries to run
- * @return {Array<Promise>} rows - results array containing an array of matching rows for each query
+ * @return {Promise<Array<Result>>} result - a list of query results
  */
 var runQueries = function(db, queries) {
   var pending = queries.map(function(query) {
@@ -42,4 +42,4 @@ var runQueries = function(db, queries) {
   });
   return Promise.all(pending);
 }
-module.exports = { loadDatabase, runQuery, runQueries }
+module.exports = { loadDatabase, runQuery, runQueries };
