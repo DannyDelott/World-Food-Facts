@@ -30,7 +30,7 @@ bash data/csv-to-sqlite3.sh data/FoodFacts.csv FoodFacts data/foodfacts.db
 #### 3. Extracting the sample from the dataset
 
 ```bash
-node parser/index.js data/foodfacts.db data/result.json
+node parser/ data/foodfacts.db data/result.json
 ```
 
 
