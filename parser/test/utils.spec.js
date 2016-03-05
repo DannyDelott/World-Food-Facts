@@ -1,7 +1,7 @@
 var expect = require('expect');
 var sqlite3 = require('sqlite3').verbose();
 var Utils = require('../Utils');
-var queries = require('../../data/mock/queries');
+var queries = require('./mock/queries');
 
 describe('Utils', function() {
   var promise;
