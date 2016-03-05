@@ -4,7 +4,6 @@ var Utils = require('../Utils');
 var Mocks = require('./mocks');
 
 describe('Utils', function () {
-  var promise;
   var db;
 
   describe('#loadDatabase', function () {
@@ -25,6 +24,8 @@ describe('Utils', function () {
   });
 
   describe('#runQuery', function () {
+    var promise;
+
     it('should return a promise', function () {
       promise = Utils.runQuery(db, Mocks.queries[0]);
       expect(promise).toBeA(Promise);
@@ -39,7 +40,33 @@ describe('Utils', function () {
 
     it('should reject the promise on error', function (done) {
       Utils
-        .runQuery(db, 'SELET * from FoodFacts')
+        .runQuery(db, 'SELET * FROM FoodFacts')
+        .catch(function (e) {
+          expect(e).toBeAn(Error);
+          done();
+        });
+    });
+  });
+
+  describe('#runQueries', function () {
+    var promise;
+
+    it('should return a promise', function () {
+      promise = Utils.runQueries(db, Mocks.queries);
+      expect(promise).toBeA(Promise);
+    });
+
+    it('should run the query and resolve with the results', function (done) {
+      promise.then(function (result) {
+         expect(JSON.stringify(result)).toEqual(JSON.stringify(Mocks.results));
+         done();
+       });
+    });
+
+    it('should reject the promise on error', function (done) {
+      var queries = ['SELET * FROM FoodFacts', 'SLECT * FROM FoodFacts'];
+      Utils
+        .runQueries(db, queries)
         .catch(function (e) {
           expect(e).toBeAn(Error);
           done();
