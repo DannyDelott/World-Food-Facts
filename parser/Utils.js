@@ -37,8 +37,9 @@ var runQuery = function(db, query) {
  * @return {Array<Promise>} rows - results array containing an array of matching rows for each query
  */
 var runQueries = function(db, queries) {
-  return queries.map(function(query, i) {
-    return runQuery(db, query, 'query' + i + '.json');
+  var pending = queries.map(function(query) {
+    return runQuery(db, query);
   });
+  return Promise.all(pending);
 }
 module.exports = { loadDatabase, runQuery, runQueries }
