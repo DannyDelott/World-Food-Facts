@@ -1,4 +1,4 @@
-module.exports = [
+var queries = [
   'SELECT countries_en FROM FoodFacts GROUP BY countries_en ORDER BY num_products ASC',
   'SELECT COUNT(countries_en) as num_products FROM FoodFacts GROUP BY countries_en ORDER BY num_products ASC',
   'SELECT SUM(proteins_100g) as protein FROM FoodFacts GROUP BY countries_en ORDER BY num_products ASC',
@@ -9,3 +9,4 @@ module.exports = [
   'SELECT SUM(saturated_fat_100g) as saturated_fat FROM FoodFacts GROUP BY countries_en ORDER BY num_products ASC',
   'SELECT SUM(trans_fat_100g) as trans_fat FROM FoodFacts GROUP BY countries_en ORDER BY num_products ASC',
 ];
+module.exports = queries;
