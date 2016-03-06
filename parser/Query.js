@@ -4,24 +4,38 @@ var Utils = require('./Utils');
  * Get a list of unique countries from the database.
  * This method also parses rows that contain multiple, comma-separated countries.
  * @param {Object} db - The sqlite3 database object
- * @return {Promise<Array<String>>} - uniqueCountries - a list of unique countries
+ * @param {String} tableName - The table to use
+ * @return {Promise<Array<String>>} - uniqueCountries - A list of unique countries
  */
-var getUniqueCountries = function (db) {
-  return Utils.runQuery(db, 'SELECT DISTINCT(countries_en) FROM FoodFacts')
+var getUniqueCountries = function (db, tableName) {
+  return Utils.runQuery(db, 'SELECT DISTINCT(countries_en) FROM ' + tableName)
     .then(_parseCountries);
 };
 
 module.exports = { getUniqueCountries };
 
+/**
+ * Converts query results into a list of unique country names.
+ * @param {Result} result - Must contain a countries_en property in each row
+ * @return {Array<String>} countries - The unique countries in the result
+ */
 function _parseCountries(result) {
   return result.rows.reduce(function (countries, row) {
-    var uniques = row.countries_en
-      .split(',')
-      .filter(function (country) {
-        return countries.indexOf(country) === -1;
-      });
+    var uniques = _filterUniqueCountries(countries, row.countries_en.split(','));
     return countries.concat(uniques);
   }, []);
+}
+
+/**
+ * Filter the list of countries against what is already present in the master list.
+ * @param {Array<String>} list - The master list to check against
+ * @param {Array<String>} countries - The list of the country names to evaluate
+ * @return {Array<String>} uniques - The unique country names not appearing in the list
+ */
+function _filterUniqueCountries(list, countries) {
+  return countries.filter(function (country) {
+    return list.indexOf(country) === -1;
+  });
 }
 
 /*

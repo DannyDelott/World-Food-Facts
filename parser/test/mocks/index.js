@@ -10,4 +10,6 @@ var results = [
   new Result(queries[1], [{ code: '000000000000012866' }]),
 ];
 
-module.exports = { queries, results };
+var uniqueCountries = ['France', 'United Kingdom', 'Spain'];
+
+module.exports = { queries, results, uniqueCountries };
