@@ -1,5 +1,5 @@
 var fs = require('fs');
-var sqlite3 = require("sqlite3").verbose();
+var sqlite3 = require('sqlite3').verbose();
 var Result = require('./Result');
 
 /**
@@ -7,7 +7,7 @@ var Result = require('./Result');
  * @param {String} file - the .db file to load
  * @return {Object} db - the sqlite3 database object
  */
-var loadDatabase = function(file) {
+var loadDatabase = function (file) {
   var exists = fs.existsSync(file);
   if (!exists) {
     throw new Error(file + ' not found.');
@@ -21,13 +21,13 @@ var loadDatabase = function(file) {
  * @param {String} query - The query to run
  * @return {Promise<Result>} result - the query result
  */
-var runQuery = function(db, query) {
- return new Promise(function(resolve, reject) {
-   db.all(query, function(error, rows) {
-     if (error) reject(error);
-     else resolve(new Result(query, rows));
-   });
- });
+var runQuery = function (db, query) {
+  return new Promise(function (resolve, reject) {
+    db.all(query, function (error, rows) {
+      if (error) reject(error);
+      else resolve(new Result(query, rows));
+    });
+  });
 };
 
 /**
@@ -36,10 +36,11 @@ var runQuery = function(db, query) {
  * @param {Array<String>} queries - The queries to run
  * @return {Promise<Array<Result>>} result - a list of query results
  */
-var runQueries = function(db, queries) {
-  var pending = queries.map(function(query) {
+var runQueries = function (db, queries) {
+  var pending = queries.map(function (query) {
     return runQuery(db, query);
   });
   return Promise.all(pending);
-}
+};
+
 module.exports = { loadDatabase, runQuery, runQueries };
