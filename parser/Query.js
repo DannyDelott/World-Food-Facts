@@ -8,7 +8,8 @@ var Utils = require('./Utils');
  * @return {Promise<Array<String>>} - uniqueCountries - A list of unique countries
  */
 var getUniqueCountries = function (db, tableName) {
-  return Utils.runQuery(db, 'SELECT DISTINCT(countries_en) FROM ' + tableName)
+  return Utils
+    .runQuery(db, 'SELECT DISTINCT(countries_en) FROM ' + tableName)
     .then(_parseCountries);
 };
 
@@ -27,15 +28,35 @@ function _parseCountries(result) {
 }
 
 /**
- * Filter the list of countries against what is already present in the master list.
- * @param {Array<String>} list - The master list to check against
- * @param {Array<String>} countries - The list of the country names to evaluate
- * @return {Array<String>} uniques - The unique country names not appearing in the list
+ * Filter the countries against what is already present in the list.
+ * @param {Array<String>} list - The list to check against
+ * @param {Array<String>} countries - The country names to evaluate
+ * @return {Array<String>} uniques - The country names not appearing in the list
  */
 function _filterUniqueCountries(list, countries) {
   return countries.filter(function (country) {
-    return list.indexOf(country) === -1;
+    return _isUnique(list, country);
   });
+}
+
+/**
+ * Check if a country is valid and is unique with respect to the list.
+ * @param {Array<String>} list - The list to check against
+ * @param {String} country - The country name to evaluate
+ * @return {Boolean} isUnique - Whether or not the country name is valid and unique to the list
+ */
+function _isUnique(list, country) {
+  return list.indexOf(country) === -1 &&
+    country.indexOf(':') === -1 &&
+    country.toLowerCase().indexOf('other') === -1 &&
+    country.length > 2 &&
+    country !== 'European Union' &&
+    country !== 'Hawaii' &&
+    country !== 'Hong Kong' &&
+    country !== 'Irlande' &&
+    country !== 'Nederland' &&
+    country !== 'Polska' &&
+    country !== 'Republique-de-chine';
 }
 
 /*
