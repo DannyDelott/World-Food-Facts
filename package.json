@@ -8,7 +8,7 @@
     "test": "./node_modules/mocha/bin/mocha ./parser/test/index.js",
     "lint": "./node_modules/jscs/bin/jscs .",
     "parse": "node parser/ data/foodfacts.db data/result.json",
-    "postinstall": "cp scripts/pre-commit.sh .git/hooks/pre-commit"
+    "postinstall": "cp scripts/pre-commit.sh .git/hooks/pre-commit && chmod +x .git/hooks/pre-commit"
   },
   "author": "",
   "license": "ISC",
