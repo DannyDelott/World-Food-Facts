@@ -6,7 +6,7 @@
   "scripts": {
     "build": "npm run lint && npm run test",
     "test": "./node_modules/mocha/bin/mocha ./parser/test/index.js",
-    "lint": "./node_modules/jscs/bin/jscs  ./parser/**/*.js --preset=airbnb",
+    "lint": "./node_modules/jscs/bin/jscs .",
     "watch": "npm-watch"
   },
   "watch": {
@@ -23,5 +23,11 @@
   },
   "dependencies": {
     "sqlite3": "^3.1.1"
+  },
+  "jscsConfig": {
+    "fileExtensions": [".js"],
+    "preset": "airbnb",
+    "verbose": true,
+    "requirePaddingNewLinesAfterBlocks": false
   }
 }
