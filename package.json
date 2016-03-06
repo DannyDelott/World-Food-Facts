@@ -7,19 +7,15 @@
     "build": "npm run lint && npm run test",
     "test": "./node_modules/mocha/bin/mocha ./parser/test/index.js",
     "lint": "./node_modules/jscs/bin/jscs .",
-    "watch": "npm-watch"
-  },
-  "watch": {
-    "build": "parser/*.js"
+    "parse": "node parser/ data/foodfacts.db data/result.json",
+    "postinstall": "cp scripts/pre-commit.sh .git/hooks/pre-commit"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "expect": "^1.13.4",
     "jscs": "^2.11.0",
-    "mocha": "^2.4.2",
-    "npm-watch": "^0.1.1",
-    "performance-now": "^0.2.0"
+    "mocha": "^2.4.2"
   },
   "dependencies": {
     "sqlite3": "^3.1.1"

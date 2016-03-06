@@ -40,8 +40,7 @@ Command | Description
 ---|---
 `npm run build` | Run the linter and run the tests
 `npm run lint` | Lint all javascript code
-`npm run test` | Run the mocha tests
-`npm run watch` | Watch js files for changes and run `npm run build` automatically
+`npm test` | Run the mocha tests
 
 #### System Requirements
 - Node v5.0.0 (will likely work on older versions)
