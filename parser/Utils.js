@@ -16,6 +16,17 @@ var loadDatabase = function (file) {
 };
 
 /**
+ * Get the list of field names in the table.
+ * @param {Object} db - The sqlite3 database object
+ * @param {String} tableName - The table to use
+ * @return {Promise<Array<String>>} fields - The fields in the table
+ */
+var getFields = function (db, tableName) {
+  return runQuery(db, 'PRAGMA table_info(' + tableName + ')')
+    .then(_parseFieldNames);
+};
+
+/**
  * Run a SQL query and return all of the matching results in a promise.
  * @param {Object} db - The sqlite3 database object
  * @param {String} query - The query to run
@@ -43,4 +54,16 @@ var runQueries = function (db, queries) {
   return Promise.all(pending);
 };
 
-module.exports = { loadDatabase, runQuery, runQueries };
+module.exports = { loadDatabase, getFields, runQuery, runQueries };
+
+/**
+ * Converts query results into a list of field names.
+ * @param {Result} result - Must contain a name in each row
+ * @return {Array<String>} fields - The field names in the result
+ */
+function _parseFieldNames(result) {
+  return result.rows.reduce(function (fields, field) {
+    fields.push(field.name);
+    return fields;
+  }, []);
+}

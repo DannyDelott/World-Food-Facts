@@ -1,11 +1,27 @@
 var Utils = require('./Utils');
 
 /**
+ * Get a country's average nutrient content. For example, get the average amount of protein in
+ * food from the United Kingdom.
+ * @param {Object} db - The sqlite3 database object
+ * @param {String} tableName - The table to use
+ * @param {String} country - The country name
+ * @param {String} nutrient - The field name that represents the nutrient, eg: 'proteins_100g'
+ * @return {Promise<Result>} result - The countries average nutrient content
+ * TODO Consider averaging all the nutrients instead of choosing protein, salt, etc explicitly.
+ */
+var getAverageNutrientContentByCountry = function (db, tableName, country) {
+  return _getNutrientNames(db, tableName);
+
+  // TODO Then select the average nutrient content for the country for all nutrients.
+};
+
+/**
  * Get a list of unique countries from the database.
  * This method also parses rows that contain multiple, comma-separated countries.
  * @param {Object} db - The sqlite3 database object
  * @param {String} tableName - The table to use
- * @return {Promise<Array<String>>} - uniqueCountries - A list of unique countries
+ * @return {Promise<Array<String>>} uniqueCountries - A list of unique countries
  */
 var getUniqueCountries = function (db, tableName) {
   return Utils
@@ -13,7 +29,28 @@ var getUniqueCountries = function (db, tableName) {
     .then(_parseCountries);
 };
 
-module.exports = { getUniqueCountries };
+module.exports = { getAverageNutrientContentByCountry, getUniqueCountries };
+
+/**
+ * Get the list of nutrient fields.
+ * @param {Object} db - The sqlite3 database object
+ * @param {String} tableName - The table to use
+ * @return {Promise<Array<String>>} nutrients - The list of nutrient names
+ */
+function _getNutrientNames(db, tableName) {
+  return Utils
+    .getFields(db, tableName)
+    .then(_filterNutrientNames);
+}
+
+/**
+ * Filter all field names for nutrients.
+ * @param {Array<String>} fields - The fields in the table
+ * @return {<Array<String>} nutrients - The list of nutrient names
+ */
+function _filterNutrientNames(fields) {
+  return fields.filter(function (f) { return f.indexOf('100g') > -1; });
+}
 
 /**
  * Converts query results into a list of unique country names.
