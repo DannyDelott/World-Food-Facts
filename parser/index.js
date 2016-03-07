@@ -1,21 +1,38 @@
 var file = process.argv[2];
 var outputFile = process.argv[3];
 
-var query = require('./queries');
 var fs = require('fs');
-var Utils = require('./utils');
-var db = Utils.loadDatabase(file);
+var Query = require('./Query');
+var db = require('./Utils').loadDatabase(file);
 
-console.log(query);
+var countries;
+var nutrients;
 
-Utils
-  .runQuery(db, query)
-  .then(_exportResults)
-  .catch(function(e){
-    console.log(e);
-  });
+function runParser() {
+  setCountriesAndNutrients(db, 'FoodFacts')
+    .then(function () {
+      console.log('done');
+    })
+    .catch(function (e) {
+      console.log(e);
+    });
 
-function _exportResults(results) {
+  // TODO: average all nutrients for each country
+}
+
+function setCountriesAndNutrients(db, table) {
+  var pending = [];
+  pending.push(Query.getUniqueCountries(db, table).then(_setCountries));
+  pending.push(Query.getNutrientNames(db, table).then(_setNutrients));
+  return Promise.all(pending);
+};
+
+function exportResults(results) {
   console.log(results);
   fs.writeFileSync(outputFile, JSON.stringify(results));
 }
+
+function _setCountries(_) { countries = _; }
+function _setNutrients(_) { nutrients = _; }
+
+module.exports = runParser();
