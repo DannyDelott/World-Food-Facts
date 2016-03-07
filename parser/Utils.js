@@ -16,6 +16,16 @@ var loadDatabase = function (file) {
 };
 
 /**
+ * Get the list of table names in the database.
+ * @param {Object} db - The sqlite3 database object
+ * @return {Promise<Array<String>>} tables - The tables in the database
+ */
+var getTables = function (db) {
+  return runQuery(db, 'SELECT * FROM sqlite_master where type=\'table\'')
+    .then(_parseNames);
+};
+
+/**
  * Get the list of field names in the table.
  * @param {Object} db - The sqlite3 database object
  * @param {String} tableName - The table to use
@@ -23,7 +33,7 @@ var loadDatabase = function (file) {
  */
 var getFields = function (db, tableName) {
   return runQuery(db, 'PRAGMA table_info(' + tableName + ')')
-    .then(_parseFieldNames);
+    .then(_parseNames);
 };
 
 /**
@@ -54,16 +64,16 @@ var runQueries = function (db, queries) {
   return Promise.all(pending);
 };
 
-module.exports = { loadDatabase, getFields, runQuery, runQueries };
+module.exports = { loadDatabase, getTables, getFields, runQuery, runQueries };
 
 /**
- * Converts query results into a list of field names.
+ * Converts query results into a list of names.
  * @param {Result} result - Must contain a name in each row
- * @return {Array<String>} fields - The field names in the result
+ * @return {Array<String>} fields - The names in the result
  */
-function _parseFieldNames(result) {
-  return result.rows.reduce(function (fields, field) {
-    fields.push(field.name);
-    return fields;
+function _parseNames(result) {
+  return result.rows.reduce(function (names, row) {
+    names.push(row.name);
+    return names;
   }, []);
 }
