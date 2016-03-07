@@ -23,10 +23,60 @@ describe('Utils', function () {
     });
   });
 
+  describe('#getTables', function () {
+    var promise;
+
+    it('should return a Promise', function () {
+      promise = Utils.getTables(db);
+      expect(promise).toBeA(Promise);
+    });
+
+    it('should resolve with the table names', function (done) {
+      promise.then(function (tables) {
+         expect(JSON.stringify(tables)).toEqual(JSON.stringify(Mocks.tables));
+         done();
+       });
+    });
+
+    it('should reject the promise on error', function (done) {
+      Utils
+        .getTables(null, null)
+        .catch(function (e) {
+          expect(e).toBeAn(Error);
+          done();
+        });
+    });
+  });
+
+  describe('#getFields', function () {
+    var promise;
+
+    it('should return a Promise', function () {
+      promise = Utils.getFields(db, Mocks.tables[0]);
+      expect(promise).toBeA(Promise);
+    });
+
+    it('should resolve with the field names', function (done) {
+      promise.then(function (fields) {
+         expect(JSON.stringify(fields)).toEqual(JSON.stringify(Mocks.fields));
+         done();
+       });
+    });
+
+    it('should reject the promise on error', function (done) {
+      Utils
+        .getFields(null, null)
+        .catch(function (e) {
+          expect(e).toBeAn(Error);
+          done();
+        });
+    });
+  });
+
   describe('#runQuery', function () {
     var promise;
 
-    it('should return a promise', function () {
+    it('should return a Promise', function () {
       promise = Utils.runQuery(db, Mocks.queries[0]);
       expect(promise).toBeA(Promise);
     });
@@ -40,7 +90,7 @@ describe('Utils', function () {
 
     it('should reject the promise on error', function (done) {
       Utils
-        .runQuery(db, 'SELET * FROM FoodFacts')
+        .runQuery(null, null)
         .catch(function (e) {
           expect(e).toBeAn(Error);
           done();
@@ -51,7 +101,7 @@ describe('Utils', function () {
   describe('#runQueries', function () {
     var promise;
 
-    it('should return a promise', function () {
+    it('should return a Promise', function () {
       promise = Utils.runQueries(db, Mocks.queries);
       expect(promise).toBeA(Promise);
     });
@@ -64,7 +114,7 @@ describe('Utils', function () {
     });
 
     it('should reject the promise on error', function (done) {
-      var queries = ['SELET * FROM FoodFacts', 'SLECT * FROM FoodFacts'];
+      var queries = ['SELET * FROM ' + Mocks.tableName + '', 'SLECT * FROM ' + Mocks.tableName];
       Utils
         .runQueries(db, queries)
         .catch(function (e) {
