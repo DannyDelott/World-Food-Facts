@@ -1,19 +1,15 @@
 var Utils = require('./Utils');
 
 /**
- * Get a country's average nutrient content. For example, get the average amount of protein in
- * food from the United Kingdom.
+ * Get the list of nutrient fields.
  * @param {Object} db - The sqlite3 database object
  * @param {String} tableName - The table to use
- * @param {String} country - The country name
- * @param {String} nutrient - The field name that represents the nutrient, eg: 'proteins_100g'
- * @return {Promise<Result>} result - The countries average nutrient content
- * TODO Consider averaging all the nutrients instead of choosing protein, salt, etc explicitly.
+ * @return {Promise<Array<String>>} nutrients - The list of nutrient names
  */
-var getAverageNutrientContentByCountry = function (db, tableName, country) {
-  return _getNutrientNames(db, tableName);
-
-  // TODO Then select the average nutrient content for the country for all nutrients.
+var getNutrientNames = function (db, tableName) {
+  return Utils
+    .getFields(db, tableName)
+    .then(_filterNutrientNames);
 };
 
 /**
@@ -29,19 +25,24 @@ var getUniqueCountries = function (db, tableName) {
     .then(_parseCountries);
 };
 
-module.exports = { getAverageNutrientContentByCountry, getUniqueCountries };
+// #<{(|*
+//  * Get a country's average nutrient content. For example, get the average amount of protein in
+//  * food from the United Kingdom.
+//  * @param {Object} db - The sqlite3 database object
+//  * @param {String} tableName - The table to use
+//  * @param {String} country - The country name
+//  * @param {String} nutrient - The field name that represents the nutrient, eg: 'proteins_100g'
+//  * @return {Promise<Result>} result - The countries average nutrient content
+//  * TODO Consider averaging all the nutrients instead of choosing protein, salt, etc explicitly.
+//  |)}>#
+// var getAverageNutrientContentByCountry = function (db, tableName, country) {
+//   return _getNutrientNames(db, tableName)
+//     .then(_getAverageNutrientContentByCountry);
+//
+//   // TODO Then select the average nutrient content for the country for all nutrients.
+// };
 
-/**
- * Get the list of nutrient fields.
- * @param {Object} db - The sqlite3 database object
- * @param {String} tableName - The table to use
- * @return {Promise<Array<String>>} nutrients - The list of nutrient names
- */
-function _getNutrientNames(db, tableName) {
-  return Utils
-    .getFields(db, tableName)
-    .then(_filterNutrientNames);
-}
+module.exports = { getNutrientNames, getUniqueCountries, };
 
 /**
  * Filter all field names for nutrients.
