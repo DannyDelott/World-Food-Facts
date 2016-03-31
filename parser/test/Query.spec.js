@@ -1,6 +1,6 @@
 var expect = require('expect');
 var Mocks = require('./mocks');
-var Parser = require('../');
+var Parser = require('../Parser');
 var Query = Parser.Query;
 var db = Parser.loadDatabase(__dirname + '/mocks/mock.db');
 
