@@ -1,108 +1,66 @@
-var Utils = require('./Utils');
+var Result = require('./Result');
 
 /**
- * Get the list of nutrient fields.
+ * Get a list of unique field values from the database.
  * @param {Object} db - The sqlite3 database object
- * @param {String} tableName - The table to use
- * @return {Promise<Array<String>>} nutrients - The list of nutrient names
+ * @param {String} tableName - The table to query
+ * @param {String} field - The field to select
+ * @return {Promise<Array<String>>} uniques - A list of unique values
  */
-var getNutrientNames = function (db, tableName) {
-  return Utils
-    .getFields(db, tableName)
-    .then(_filterNutrientNames);
+var getUnique = function (db, tableName, field) {
+  var query = 'SELECT DISTINCT(' + field + ') FROM ' + tableName;
+  return runQuery(db, query);
 };
 
 /**
- * Get a list of unique countries from the database.
- * This method also parses rows that contain multiple, comma-separated countries.
+ * Get the list of table names in the database.
  * @param {Object} db - The sqlite3 database object
- * @param {String} tableName - The table to use
- * @return {Promise<Array<String>>} uniqueCountries - A list of unique countries
+ * @return {Promise<Array<String>>} tables - The tables in the database
  */
-var getUniqueCountries = function (db, tableName) {
-  return Utils
-    .runQuery(db, 'SELECT DISTINCT(countries_en) FROM ' + tableName)
-    .then(_parseCountries);
+var getTables = function (db) {
+  var query = 'SELECT * FROM sqlite_master where type=\'table\'';
+  return runQuery(db, query).then(_parseNames);
 };
 
-// #<{(|*
-//  * Get a country's average nutrient content. For example, get the average amount of protein in
-//  * food from the United Kingdom.
-//  * @param {Object} db - The sqlite3 database object
-//  * @param {String} tableName - The table to use
-//  * @param {String} country - The country name
-//  * @param {String} nutrient - The field name that represents the nutrient, eg: 'proteins_100g'
-//  * @return {Promise<Result>} result - The countries average nutrient content
-//  * TODO Consider averaging all the nutrients instead of choosing protein, salt, etc explicitly.
-//  |)}>#
-// var getAverageNutrientContentByCountry = function (db, tableName, country) {
-//   return _getNutrientNames(db, tableName)
-//     .then(_getAverageNutrientContentByCountry);
-//
-//   // TODO Then select the average nutrient content for the country for all nutrients.
-// };
-
-module.exports = { getNutrientNames, getUniqueCountries, };
+/**
+ * Get the list of field names in the table.
+ * @param {Object} db - The sqlite3 database object
+ * @param {String} tableName - The table to use
+ * @return {Promise<Array<String>>} fields - The fields in the table
+ */
+var getFields = function (db, tableName) {
+  var query = 'PRAGMA table_info(' + tableName + ')';
+  return runQuery(db, query).then(_parseNames);
+};
 
 /**
- * Filter all field names for nutrients.
- * @param {Array<String>} fields - The fields in the table
- * @return {<Array<String>} nutrients - The list of nutrient names
+ * Run a SQL query and return all of the matching results in a promise.
+ * @param {Object} db - The sqlite3 database object
+ * @param {String} query - The query to run
+ * @return {Promise<Result>} result - the query result
  */
-function _filterNutrientNames(fields) {
-  return fields.filter(function (f) { return f.indexOf('100g') > -1; });
-}
-
-/**
- * Converts query results into a list of unique country names.
- * @param {Result} result - Must contain a countries_en property in each row
- * @return {Array<String>} countries - The unique countries in the result
- */
-function _parseCountries(result) {
-  return result.rows.reduce(function (countries, row) {
-    var uniques = _filterUniqueCountries(countries, row.countries_en.split(','));
-    return countries.concat(uniques);
-  }, []);
-}
-
-/**
- * Filter the countries against what is already present in the list.
- * @param {Array<String>} list - The list to check against
- * @param {Array<String>} countries - The country names to evaluate
- * @return {Array<String>} uniques - The country names not appearing in the list
- */
-function _filterUniqueCountries(list, countries) {
-  return countries.filter(function (country) {
-    return _isUnique(list, country);
+var runQuery = function (db, query) {
+  return new Promise(function (resolve, reject) {
+    db.all(query, function (error, rows) {
+      if (error) reject(error);
+      else resolve(new Result(query, rows));
+    });
   });
-}
+};
 
 /**
- * Check if a country is valid and is unique with respect to the list.
- * @param {Array<String>} list - The list to check against
- * @param {String} country - The country name to evaluate
- * @return {Boolean} isUnique - Whether or not the country name is valid and unique to the list
+ * Run a list of queries and return the matching rows in an array of promises.
+ * @param {Object} db - The sqlite3 database object
+ * @param {Array<String>} queries - The queries to run
+ * @return {Promise<Array<Result>>} result - a list of query results
  */
-function _isUnique(list, country) {
-  return list.indexOf(country) === -1 &&
-    country.indexOf(':') === -1 &&
-    country.toLowerCase().indexOf('other') === -1 &&
-    country.length > 2 &&
-    country !== 'European Union' &&
-    country !== 'Hawaii' &&
-    country !== 'Hong Kong' &&
-    country !== 'Irlande' &&
-    country !== 'Nederland' &&
-    country !== 'Polska' &&
-    country !== 'Republique-de-chine';
-}
+var runQueries = function (db, queries) {
+  var pending = queries.map(function (query) { return runQuery(db, query); });
+  return Promise.all(pending);
+};
 
-/*
-SELECT SUM(proteins_100g) as protein FROM FoodFacts GROUP BY countries_en
-SELECT SUM(salt_100g) as salt FROM FoodFacts GROUP BY countries_en
-SELECT SUM(sodium_100g) as sodium FROM FoodFacts GROUP BY countries_en
-SELECT SUM(sugars_100g) as sugars FROM FoodFacts GROUP BY countries_en
-SELECT SUM(fat_100g) as fat FROM FoodFacts GROUP BY countries_en
-SELECT SUM(saturated_fat_100g) as saturated_fat FROM FoodFacts GROUP BY countries_en
-SELECT SUM(trans_fat_100g) as trans_fat FROM FoodFacts GROUP BY countries_en
-*/
+module.exports = { getUnique, getTables, getFields, runQuery, runQueries };
+
+function _parseNames(result) {
+  return result.rows.reduce(function (names, row) { names.push(row.name); return names; }, []);
+}
