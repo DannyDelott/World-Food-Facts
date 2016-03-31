@@ -1,3 +1,3 @@
 require('./Result.spec.js');
 require('./Query.spec.js');
-require('./utils.spec.js');
+require('./Parser.spec.js');
