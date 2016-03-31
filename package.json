@@ -24,6 +24,7 @@
     "fileExtensions": [".js"],
     "preset": "airbnb",
     "verbose": true,
-    "requirePaddingNewLinesAfterBlocks": false
+    "requirePaddingNewLinesAfterBlocks": false,
+    "requireBlocksOnNewline": false
   }
 }
