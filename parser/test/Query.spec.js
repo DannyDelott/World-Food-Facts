@@ -11,20 +11,20 @@ describe('Query', function () {
       expect(promise).toBeA(Promise);
     });
 
-    it('should reject the promise on error', function (done) {
-      Query
-        .getUnique(null, null, null)
-        .catch(function (e) {
-          expect(e).toBeAn(Error);
-          done();
-        });
-    });
-
     it('should resolve with the list of unique field values', function (done) {
       Query
         .getUnique(db, Mocks.tables[0], 'countries_en')
         .then(function (result) {
           expect(JSON.stringify(result)).toEqual(JSON.stringify(Mocks.getUniqueResult));
+          done();
+        });
+    });
+
+    it('should reject the promise on error', function (done) {
+      Query
+        .getUnique(null, null, null)
+        .catch(function (e) {
+          expect(e).toBeAn(Error);
           done();
         });
     });
@@ -113,7 +113,7 @@ describe('Query', function () {
       expect(promise).toBeA(Promise);
     });
 
-    it('should run the query and resolve with the results', function (done) {
+    it('should resolve with the results', function (done) {
       promise.then(function (result) {
          expect(JSON.stringify(result)).toEqual(JSON.stringify(Mocks.results));
          done();
