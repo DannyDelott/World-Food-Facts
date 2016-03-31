@@ -13,12 +13,12 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "expect": "^1.13.4",
-    "jscs": "^2.11.0",
-    "mocha": "^2.4.2"
+    "expect": "1.13.4",
+    "jscs": "2.11.0",
+    "mocha": "2.4.2"
   },
   "dependencies": {
-    "sqlite3": "^3.1.1"
+    "sqlite3": "3.1.1"
   },
   "jscsConfig": {
     "fileExtensions": [".js"],
